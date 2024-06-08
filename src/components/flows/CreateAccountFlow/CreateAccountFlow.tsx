@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect } from 'react'
+import { useTranslation } from 'next-i18next'
 import Button from '@/components/common/Button/Button'
 import Heading from '@/components/common/Heading/Heading'
 import Text from '@/components/common/Text/Text'
@@ -11,6 +12,8 @@ interface CreateAccountFlowProps {
 }
 
 function CreateAccountFlow({ theme = 'light', onAccountCreate }: CreateAccountFlowProps) {
+  const { t } = useTranslation();
+
   useEffect(() => {}, [])
 
   const handleCreateAccount = () => {
@@ -27,7 +30,7 @@ function CreateAccountFlow({ theme = 'light', onAccountCreate }: CreateAccountFl
         Create an account to start playing and earning PROFIT tokens
       </Text>
       <Button onClick={handleCreateAccount} variant="primary">
-        Create account
+        {t('word.createAccount')}
       </Button>
     </div>
   )

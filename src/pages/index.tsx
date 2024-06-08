@@ -5,16 +5,16 @@ import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { TelegramUser } from '@/data/telegram'
 
-const GameView = dynamic(() => import('@/features/game/GameView/GameView'), { ssr: false })
 const CreateAccountFlow = dynamic(
   () => import('@/components/flows/CreateAccountFlow/CreateAccountFlow'),
   { ssr: false },
 )
 
 export default function Home() {
-  const [isAccountCreated, setIsAccountCreated] = useState<boolean>(
-    getCookie('isAccountCreated') === 'true',
-  )
+  const [isAccountCreated, setIsAccountCreated] = useState<boolean>(false);
+  // const [isAccountCreated, setIsAccountCreated] = useState<boolean>(
+  //   getCookie('isAccountCreated') === 'true',
+  // )
   const [user, setUser] = useState<TelegramUser | null>(null)
 
   useEffect(() => {
@@ -45,7 +45,9 @@ export default function Home() {
         {!isAccountCreated ? (
           <CreateAccountFlow theme="light" onAccountCreate={handleAccountCreate} />
         ) : null}
-        {user ? <GameView /> : null}
+        {user ? (
+          <div></div>
+        ) : null}
       </main>
     </>
   )
