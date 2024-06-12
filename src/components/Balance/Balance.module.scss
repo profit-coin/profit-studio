@@ -1,17 +1,30 @@
-.balance {
+.ballance {
+  gap: 8px;
+  color: #fff;
   display: flex;
+  font-size: 48px;
+  font-weight: 800;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
 }
 
 .coin {
-  width: 40px;
+  width: 32px;
 }
 
-.sum {
-  font-size: 40px;
-  font-family: 'Bungee Spice', sans-serif;
-  font-weight: 400;
-  font-style: normal;
+.primary {
+  color: #fff;
+}
+
+.primaryInverse {
+  color: #000;
+}
+
+.small {
+  gap: 4px;
+  font-size: 20px;
+
+
+  .coin {
+    width: 20px;
+  }
 }

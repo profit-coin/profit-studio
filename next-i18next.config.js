@@ -7,7 +7,7 @@ const isDev = process.env.NODE_ENV === 'development';
 /** @type import("next").I18NConfig */
 const i18n = {
   defaultLocale: 'en',
-  locales: ['en'],
+  locales: ['en']
 };
 
 /** @type import("next-i18next").UserConfig */
@@ -30,4 +30,3 @@ const next18nextConfig = {
 };
 
 module.exports = next18nextConfig;
-

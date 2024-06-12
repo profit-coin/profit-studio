@@ -1,0 +1,12 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  flex-direction: column;
+}
+
+.image {
+  width: 180px;
+  height: 180px;
+  border-radius: 10px;
+}

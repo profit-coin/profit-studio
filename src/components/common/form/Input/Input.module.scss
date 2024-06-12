@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+}
+
+.input {
+  flex: 1;
+  color: #000;
+  border: none;
+  height: 42px;
+  outline: none;
+  font-size: 16px;
+  padding: 0 16px;
+  line-height: 42px;
+  background-color: #fff;
+}
+
+.prefix {
+  color: #888;
+  display: flex;
+  font-weight: bold;
+  padding-left: 16px;
+  align-items: center;
+  background-color: #fff;
+  justify-content: center;
+  border-radius: 4px 0 0 4px;
+}
+
+.fullWidth {
+  width: 100%;
+}

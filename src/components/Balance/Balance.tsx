@@ -1,19 +1,20 @@
-/* eslint-disable @next/next/no-img-element */
-import { FC } from 'react'
+import classNames from 'classnames';
 import styles from './Balance.module.scss'
+import Coin from '../../../public/coin.svg'
 
-type Props = {
-  balance: number
+interface BalanceProps {
+  balance: number;
+  size: 'small' | 'large';
+  color: 'primary' | 'primaryInverse';
 }
 
-export const Balance: FC<Props> = ({ balance }) => {
+function Balance ({ balance, size, color }: BalanceProps) {
   return (
-    <div className={styles.balance}>
-      <img src="/images/coin.png" className={styles.coin} alt="" />
-
-      <div className={styles.sum}>
-        {balance.toLocaleString('en-En', { maximumFractionDigits: 3 })}
-      </div>
-    </div>
-  )
+    <span className={classNames(styles.ballance, styles[size], styles[color])}>
+      {balance}
+      <Coin className={styles.coin} />
+    </span>
+  );
 }
+
+export default Balance;

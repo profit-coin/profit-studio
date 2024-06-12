@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next'
 import Button from '@/components/common/Button/Button'
 import Heading from '@/components/common/Heading/Heading'
 import Text from '@/components/common/Text/Text'
+import Coin from '../../../../public/coin.svg'
 import styles from './CreateAccountFlow.module.scss'
 
 interface CreateAccountFlowProps {
@@ -22,18 +23,18 @@ function CreateAccountFlow({ theme = 'light', onAccountCreate }: CreateAccountFl
 
   return (
     <div className={styles.flow}>
-      <img src="/coin.png" className={styles.logo} alt="" />
+      <Coin className={styles.logo} />
       <Heading theme={theme} size="h1">
-        Welcome to Profit Game
+        {t('flows.createAccount.title')}
       </Heading>
       <Text color="primary" size="large">
-        Create an account to start playing and earning PROFIT tokens
+        {t('flows.createAccount.description')}
       </Text>
       <Button onClick={handleCreateAccount} variant="primary">
-        {t('word.createAccount')}
+        {t('flows.createAccount.button')}
       </Button>
     </div>
-  )
+  );
 }
 
 export default CreateAccountFlow

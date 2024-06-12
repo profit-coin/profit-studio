@@ -2,10 +2,6 @@
   font-weight: 700;
 }
 
-.light {
-  color: var(--light-color);
-}
-
 .h1 {
   font-size: 32px;
   margin-bottom: 0;
@@ -14,4 +10,12 @@
 
 .center {
   text-align: center;
+}
+
+.primary {
+  color: #fff;
+}
+
+.inverse {
+  color: #000;
 }

@@ -1,0 +1,27 @@
+.card {
+  width: 100%;
+  display: grid;
+  text-decoration: none;
+  background-color: #fff;
+  grid-gap: var(--spacing-4);
+  grid-template-columns: 64px 1fr;
+  padding: var(--spacing-2);
+  border-radius: var(--spacing-2);
+}
+
+.image {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--spacing-2);
+}
+
+.name {
+  display: -webkit-box;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  text-overflow: ellipsis;
+
+}
