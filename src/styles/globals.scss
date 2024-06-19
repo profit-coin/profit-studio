@@ -13,3 +13,7 @@ html, body {
   background: var(--tg-theme-secondary-bg-color);
   font-family: -apple-system,BlinkMacSystemFont,sans-serif
 }
+
+#__next {
+  height: 100%;
+}
