@@ -7,11 +7,14 @@ import AddChannelForm from '@/components/channels/AddChannelForm/AddChannelForm'
 import Box from '@/components/common/Box/Box'
 import Text from '@/components/common/Text/Text'
 import WrapperWithButton from '@/components/wrappers/WrapperWithButton/WrapperWithButton'
+import {useVerifyChannelOwnershipMutation} from '@/data/channels'
 
 function AddChannelPage() {
   const { push } = useRouter();
   const [ slug, setSlug ] = useState<string>('');
   const [ user, setUser ] = useState<TelegramUser | null>(null)
+
+  const verifyChannelOwnershipMutation = useVerifyChannelOwnershipMutation();
 
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe) {
@@ -31,7 +34,14 @@ function AddChannelPage() {
   }, []);
 
   const handleAddChannel = () => {
-    console.log('Add channel', slug);
+    console.log('handleAddChannel', user);
+    if (!user) {
+      return;
+    }
+    verifyChannelOwnershipMutation.mutate({
+      slug,
+      userId: user.id
+    });
   };
 
   return (

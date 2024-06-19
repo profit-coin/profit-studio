@@ -9,10 +9,7 @@
 
 html, body {
   overflow: hidden;
-  height: 100vh;
-  background: var(--background-color);
-}
-
-body {
-  background: linear-gradient(180deg, rgba(47, 44, 170, 1) 0%, rgba(89, 86, 255, 1) 25%, rgba(89, 86, 255, 1) 100%);
+  height: var(--tg-viewport-height);
+  background: var(--tg-theme-secondary-bg-color);
+  font-family: -apple-system,BlinkMacSystemFont,sans-serif
 }

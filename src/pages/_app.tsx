@@ -1,12 +1,18 @@
-import type { AppProps } from 'next/app'
+import type { AppContext, AppInitialProps, AppProps } from 'next/app'
 import DefaultLayout from '@/components/layout/DefaultLayout/DefaultLayout'
 import '@/styles/globals.scss'
+import App from 'next/app'
 import { appWithTranslation } from 'next-i18next'
 import nextI18NextConfig from '../../next-i18next.config.js';
-import {useState} from 'react';
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AuthProvider } from '@/auth/authContext'
 
-function App({ Component, pageProps }: AppProps) {
+export type ColorScheme = 'light' | 'dark';
+
+function CustomApp({ Component, pageProps }: AppProps) {
+  const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
+
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -19,13 +25,25 @@ function App({ Component, pageProps }: AppProps) {
       }),
   );
 
+  useEffect(() => {
+    if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe) {
+      setColorScheme(window.Telegram.WebApp.colorScheme);
+    }
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
-      <DefaultLayout>
-        <Component {...pageProps} />
-      </DefaultLayout>
+      <AuthProvider>
+        <DefaultLayout colorScheme={colorScheme}>
+          <Component {...pageProps} />
+        </DefaultLayout>
+      </AuthProvider>
     </QueryClientProvider>
   )
 }
 
-export default appWithTranslation(App, nextI18NextConfig);
+CustomApp.getInitialProps = async (context: AppContext): Promise<AppInitialProps> => {
+  return await App.getInitialProps(context);
+};
+
+export default appWithTranslation(CustomApp, nextI18NextConfig);

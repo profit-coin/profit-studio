@@ -1,19 +1,22 @@
-import { PropsWithChildren } from 'react'
-import { Mada } from 'next/font/google'
+import { PropsWithChildren, useEffect } from 'react'
 import styles from './DefaultLayout.module.scss'
+import { ColorScheme } from '@/pages/_app'
+import classNames from 'classnames';
 
-// import Footer from '../../Footer/Footer';
+interface DefaultLayoutProps {
+  colorScheme: ColorScheme;
+}
 
-const font = Mada({
-  display: 'swap',
-  subsets: ['latin'],
-  weight: ['300', '400', '700', '800'],
-})
+function DefaultLayout({ children, colorScheme }: PropsWithChildren<DefaultLayoutProps>) {
+  useEffect(() => {
+    if (window.Telegram?.WebApp && !window.Telegram?.WebApp?.isExpanded) {
+      window.Telegram.WebApp.expand()
+    }
+  }, []);
 
-function DefaultLayout({ children }: PropsWithChildren) {
   return (
-    <div className={styles.layout}>
-      <div className={font.className}>{children}</div>
+    <div className={classNames(colorScheme, styles.layout)}>
+      {children}
     </div>
   )
 }
