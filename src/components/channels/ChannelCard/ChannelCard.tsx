@@ -4,6 +4,7 @@ import Text from '@/components/common/Text/Text';
 import Balance from '@/components/Balance/Balance';
 import { InternalLink } from '@/components/common/Link/Link';
 import { InternalChannel } from '@/data/channels';
+import ChannelAvatar from '@/components/channel/ChannelAvatar/ChannelAvatar';
 
 interface ChannelCardProps {
   channel: InternalChannel;
@@ -12,9 +13,7 @@ interface ChannelCardProps {
 function ChannelCard ({ channel }: ChannelCardProps) {
   return (
     <InternalLink to={`/channels/${channel.telegramId}`} className={styles.card}>
-      {channel.avatar ?
-        <img src={channel.avatar} alt={channel.title} className={styles.image} />
-      : <div className={styles.defaultImage}>{channel.title[0]}</div>}
+      <ChannelAvatar channel={channel} />
       <div className={styles.info}>
         <Heading size="h4" align="left" className={styles.name}>{channel.title}</Heading>
         <Text align="left" size="tiny" className={styles.subscribers}>{channel.members} subscribers</Text>

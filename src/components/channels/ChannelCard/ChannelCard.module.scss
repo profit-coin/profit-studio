@@ -9,12 +9,6 @@
   background-color: var(--tg-theme-bg-color);
 }
 
-.image {
-  width: 64px;
-  height: 64px;
-  border-radius: 64px;
-}
-
 .name {
   display: -webkit-box;
   overflow: hidden;
@@ -23,17 +17,4 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   text-overflow: ellipsis;
-}
-
-.defaultImage {
-  width: 64px;
-  height: 64px;
-  color: var(--text-primary);
-  border-radius: 64px;
-  background-color: var(--tg-theme-secondary-bg-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 700;
-  font-size: 32px;
 }

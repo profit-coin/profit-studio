@@ -50,12 +50,12 @@ function AddChannelPage() {
   return (
     <WrapperWithButton buttonLabel="Add" onButtonClick={handleAddChannel} isButtonLoading={isSubmitting} user={user}>
       <Box mb="6">
-        <Heading size="h1" align="left">
+        <Heading size="h2" align="left">
           Add new channel
         </Heading>
       </Box>
       <Box mb="6">
-        <Text color="primary" size="medium" align="left">
+        <Text color="primary" size="small" align="left">
           ⚠️ Before adding a channel, make sure that our bot is already an admin in your channel. Otherwise, we won't be able to fetch your channel's data and verify it.
         </Text>
       </Box>
