@@ -4,8 +4,8 @@ import { useEffect } from 'react'
 import Head from 'next/head'
 import DefaultWrapper from '@/components/wrappers/DefaultWrapper/DefaultWrapper'
 import ChannelHeader from '@/components/channel/ChannelHeader/ChannelHeader'
-import {useAuth} from '@/auth/authContext'
-import {useChannelByTelegramId} from '@/data/channels'
+import { useAuth } from '@/auth/authContext'
+import { useChannelByTelegramId } from '@/data/channels'
 import Loader from '@/components/common/Loader/Loader'
 
 const ChannelChart = dynamic(

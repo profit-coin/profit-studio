@@ -12,8 +12,8 @@ function ChannelHeader ({ channel }: ChannelHeaderProps) {
   return (
     <div className={styles.header}>
       <img src={channel.avatar} alt={channel.title} className={styles.image} />
-      <Heading size="h1" className={styles.name}>{channel.title}</Heading>
-      <Text size="medium">{channel.members} subscribers</Text>
+      <Heading size="h2" className={styles.name}>{channel.title}</Heading>
+      <Text size="small">{channel.members} subscribers</Text>
       <Balance balance={channel.balance} size="large" />
     </div>
   );
