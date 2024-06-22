@@ -13,7 +13,7 @@ function ProfileHead({ user }: ProfileHeadProps) {
         {user.firstName} {user.lastName}
       </h1>
       <span className={styles.username}>@{user.username}</span>
-      <Balance color="primary" balance={user.balance} size="large" />
+      <Balance balance={user.balance} size="large" />
     </div>
   )
 }

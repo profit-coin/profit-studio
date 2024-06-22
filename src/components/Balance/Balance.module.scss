@@ -1,22 +1,14 @@
 .ballance {
   gap: 8px;
-  color: #fff;
   display: flex;
   font-size: 48px;
   font-weight: 800;
   align-items: center;
+  color: var(--tg-theme-text-color);
 }
 
 .coin {
   width: 32px;
-}
-
-.primary {
-  color: #fff;
-}
-
-.primaryInverse {
-  color: #000;
 }
 
 .small {

@@ -40,7 +40,7 @@ function AddChannelPage() {
 
   return (
     <WrapperWithButton buttonLabel="Add" onButtonClick={handleAddChannel} user={user}>
-      <Box mb="4">
+      <Box mb="6">
         <Heading size="h1" align="left">
           Add new channel
         </Heading>

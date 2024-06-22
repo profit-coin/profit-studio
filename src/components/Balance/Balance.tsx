@@ -5,12 +5,11 @@ import Coin from '../../../public/coin.svg'
 interface BalanceProps {
   balance: number;
   size: 'small' | 'large';
-  color: 'primary' | 'primaryInverse';
 }
 
-function Balance ({ balance, size, color }: BalanceProps) {
+function Balance ({ balance, size }: BalanceProps) {
   return (
-    <span className={classNames(styles.ballance, styles[size], styles[color])}>
+    <span className={classNames(styles.ballance, styles[size])}>
       {balance}
       <Coin className={styles.coin} />
     </span>

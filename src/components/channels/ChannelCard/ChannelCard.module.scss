@@ -2,11 +2,11 @@
   width: 100%;
   display: grid;
   text-decoration: none;
-  background-color: #fff;
   grid-gap: var(--spacing-4);
   grid-template-columns: 64px 1fr;
   padding: var(--spacing-2);
   border-radius: var(--spacing-2);
+  background-color: var(--tg-theme-bg-color);
 }
 
 .image {

@@ -16,7 +16,7 @@ function ChannelCard ({ channel }: ChannelCardProps) {
       <div className={styles.info}>
         <Heading color="inverse" size="h4" align="left" className={styles.name}>{channel.name}</Heading>
         <Text color="primaryInverse" align="left" size="tiny" className={styles.subscribers}>{channel.subscribers} subscribers</Text>
-        <Balance color="primaryInverse" balance={channel.total} size="small" />
+        <Balance balance={channel.total} size="small" />
       </div>
     </InternalLink>
   );

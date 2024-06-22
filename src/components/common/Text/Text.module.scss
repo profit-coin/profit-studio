@@ -1,12 +1,5 @@
 .text {
-}
-
-.primary {
-  color: #fff;
-}
-
-.primaryInverse {
-  color: #000;
+  color: var(--text-primary);
 }
 
 .large {
@@ -27,4 +20,8 @@
 
 .center {
   text-align: center;
+}
+
+.red {
+  color: var(--red);
 }

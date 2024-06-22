@@ -1,8 +1,21 @@
 :root {
-  --background-color: #5956FF;
-  --light-color: #fff;
-
+  --spacing-1: 4px;
   --spacing-2: 8px;
   --spacing-4: 16px;
   --spacing-6: 24px;
+  --spacing-8: 32px;
+}
+
+.dark {
+  --red: #ee0022;
+  --text-primary: #ffffff;
+  --text-inverted: #000000;
+  --bg-white-black: #ffffff;
+}
+
+.light {
+  --red: #ee0022;
+  --text-primary: #000000;
+  --text-inverted: #ffffff;
+  --bg-white-black: #000000;
 }

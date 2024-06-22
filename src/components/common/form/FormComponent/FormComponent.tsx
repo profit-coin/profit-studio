@@ -25,12 +25,12 @@ function FormComponent ({ children, name, label, isFullWidth, errorMessage, mess
         {children}
       </div>
       {errorMessage ? (
-        <Text color="error" className={styles.errorMessage}>
+        <Text className={styles.errorMessage}>
           {errorMessage}
         </Text>
       ) : null}
       {message ? (
-        <Text size="small" color="primary" className={styles.message}>
+        <Text size="small" className={styles.message}>
           {message}
         </Text>
       ) : null}
