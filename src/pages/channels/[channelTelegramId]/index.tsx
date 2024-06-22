@@ -3,9 +3,10 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import Head from 'next/head'
 import DefaultWrapper from '@/components/wrappers/DefaultWrapper/DefaultWrapper'
-import {useChannelBySlug} from '@/data/channels'
 import ChannelHeader from '@/components/channel/ChannelHeader/ChannelHeader'
 import {useAuth} from '@/auth/authContext'
+import {useChannelByTelegramId} from '@/data/channels'
+import Loader from '@/components/common/Loader/Loader'
 
 const ChannelChart = dynamic(
   () => import('@/components/channel/ChannelChart/ChannelChart'),
@@ -16,8 +17,8 @@ function ChannelPage() {
   const { user } = useAuth();
 
   const { push, query } = useRouter();
-  const slug = query.slug as string;
-  const { data: channel } = useChannelBySlug(slug);
+  const channelTelegramId = query.channelTelegramId as string;
+  const { data: channel, isLoading } = useChannelByTelegramId(parseInt(channelTelegramId), user?.telegramId);
 
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe) {
@@ -38,12 +39,16 @@ function ChannelPage() {
       <main>
         {user ? (
           <DefaultWrapper>
-            {channel ? (
+            {!isLoading ? (
               <>
-                <ChannelHeader channel={channel} />
-                <ChannelChart channel={channel} />
+                {channel ? (
+                  <>
+                    <ChannelHeader channel={channel} />
+                    <ChannelChart channel={channel} />
+                  </>
+                ) : null}
               </>
-            ) : null}
+            ) : <Loader />}
           </DefaultWrapper>
         ) : null}
       </main>

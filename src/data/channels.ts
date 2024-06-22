@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import {CHANNELS_MOCK, CHANNEL_1_MOCK, CHANNEL_2_MOCK, CHANNEL_3_MOCK} from './__mocks__/channels';
 import appConfig from '@/config/appConfig';
 import axios from 'axios';
 
@@ -20,25 +19,48 @@ export interface Channel extends ChannelListItem {
   }
 }
 
-export const useChannels = () => useQuery({
+export const useChannels = (userTelegramId?: number) => useQuery({
   queryKey: ['channels'],
   queryFn: async () => {
-    const data: ChannelListItem[] = CHANNELS_MOCK;
-    return data;
+    if (!userTelegramId) {
+      return [];
+    }
+
+    let response = null;
+    try { 
+      response = await axios.get<InternalChannel[]>(`${appConfig.apiBaseUrl}/v1/studio/channels/user?userTelegramId=${userTelegramId}`);
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+
+    if (typeof response.data === 'string') {
+      return [];
+    }
+
+    return response.data;
   },
+  enabled: !!userTelegramId,
 });
 
-export const useChannelBySlug = (slug: string) => useQuery({
-  queryKey: ['channel', slug],
+export const useChannelByTelegramId = (channelTelegramId: number, userTelegramId?: number) => useQuery({
+  queryKey: ['channel', channelTelegramId],
   queryFn: async () => {
-    if (slug === 'ruArt') {
-      return CHANNEL_1_MOCK;
+    let response = null;
+    try {
+      response = await axios.get<InternalChannel>(`${appConfig.apiBaseUrl}/v1/studio/channels/${channelTelegramId}?userTelegramId=${userTelegramId}`);
+    } catch (error) {
+      console.log(error);
+      return null;
     }
-    if (slug === 'java-job') {
-      return CHANNEL_2_MOCK;
+
+    if (typeof response.data === 'string') {
+      return null;
     }
-    return CHANNEL_3_MOCK;
+
+    return response.data;
   },
+  enabled: !!userTelegramId,
 });
 
 interface AddChannelPayload {
@@ -46,10 +68,18 @@ interface AddChannelPayload {
   userTelegramId: number;
 }
 
-interface InternalChannel {
-  id: number;
-  channelSlug: string;
-  userTelegramId: number;
+export interface InternalChannel {
+  telegramId: number;
+  slug: string;
+  title: string;
+  description: string | null;
+  avatar: string;
+  members: number;
+  balance: number;
+  stats?: {
+    series: number[];
+    labels: number[];
+  };
 }
 
 export const useAddChannelMutation = () => {
@@ -67,6 +97,9 @@ export const useAddChannelMutation = () => {
         console.log(error);
       }
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['channels']});
+    }
   });
 }
 

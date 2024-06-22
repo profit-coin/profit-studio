@@ -12,6 +12,7 @@ function AddChannelPage() {
   const { user } = useAuth();
   const { push } = useRouter();
   const [ slug, setSlug ] = useState<string>('');
+  const [ isSubmitting, setIsSubmitting ] = useState<boolean>(false);
 
   const addChannelMutation = useAddChannelMutation();
 
@@ -24,14 +25,22 @@ function AddChannelPage() {
     }
   }, []);
 
-  const handleAddChannel = () => {
+  const handleAddChannel = async () => {
     if (!user) {
       return;
     }
-    addChannelMutation.mutate({
-      channelSlug: slug,
-      userTelegramId: user.id
-    });
+    setIsSubmitting(true);
+    try {
+      await addChannelMutation.mutateAsync({
+        channelSlug: slug,
+        userTelegramId: user.telegramId
+      });
+      window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+      push('/');
+    } catch (error) {
+      console.log(error);
+    }
+    setIsSubmitting(false);
   };
 
   if (!user) {
@@ -39,7 +48,7 @@ function AddChannelPage() {
   }
 
   return (
-    <WrapperWithButton buttonLabel="Add" onButtonClick={handleAddChannel} user={user}>
+    <WrapperWithButton buttonLabel="Add" onButtonClick={handleAddChannel} isButtonLoading={isSubmitting} user={user}>
       <Box mb="6">
         <Heading size="h1" align="left">
           Add new channel

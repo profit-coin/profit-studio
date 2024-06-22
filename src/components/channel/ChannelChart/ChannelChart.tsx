@@ -1,12 +1,16 @@
-import { Channel } from '../../../data/channels';
+import { InternalChannel } from '../../../data/channels';
 import Chart from 'react-apexcharts';
 import styles from './ChannelChart.module.scss';
 
 interface ChannelChartProps {
-  channel: Channel;
+  channel: InternalChannel;
 }
 
 function ChannelChart ({ channel }: ChannelChartProps) {
+  if (!channel.stats) {
+    return null;
+  }
+
   const options = {
     chart: {
       toolbar: {
