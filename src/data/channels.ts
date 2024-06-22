@@ -41,6 +41,7 @@ export const useChannels = (userTelegramId?: number) => useQuery({
     return response.data;
   },
   enabled: !!userTelegramId,
+  refetchInterval: 3000
 });
 
 export const useChannelByTelegramId = (channelTelegramId: number, userTelegramId?: number) => useQuery({

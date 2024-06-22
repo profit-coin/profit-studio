@@ -8,7 +8,6 @@ import ProfileHead from '@/components/ProfileHead/ProfileHead';
 
 interface WrapperWithButtonProps {
   user?: InternalUser;
-
   buttonLabel: string;
   isButtonLoading?: boolean;
   onButtonClick: () => void;
@@ -17,9 +16,7 @@ interface WrapperWithButtonProps {
 function WrapperWithButton ({ children, user, onButtonClick, buttonLabel, isButtonLoading }: PropsWithChildren<WrapperWithButtonProps>) {
   return (
     <div className={classNames(styles.wrapper, {[styles.isWithAccount]: Boolean(user)})}>
-      {user && (
-        <ProfileHead user={user} />
-      )}
+      {user ? <ProfileHead /> : null}
       <div className={styles.content}>
         <ScrollArea rootClassName={styles.scrollAreaRoot} viewportClassName={styles.scrollAreaViewport}>
           {children}
