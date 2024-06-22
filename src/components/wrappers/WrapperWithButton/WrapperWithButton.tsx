@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import { TelegramUser } from '@/data/telegram';
+import { InternalUser } from '@/data/auth';
 import styles from './WrapperWithButton.module.scss';
 import Button from '@/components/common/Button/Button';
 import ScrollArea from '@/components/common/ScrollArea/ScrollArea';
@@ -9,14 +9,13 @@ import ProfileHead from '@/components/ProfileHead/ProfileHead';
 interface WrapperWithButtonProps {
   onButtonClick: () => void;
   buttonLabel: string;
-  user?: TelegramUser;
-  isWithAccount?: boolean;
+  user?: InternalUser;
 }
 
-function WrapperWithButton ({ children, user, onButtonClick, isWithAccount, buttonLabel }: PropsWithChildren<WrapperWithButtonProps>) {
+function WrapperWithButton ({ children, user, onButtonClick, buttonLabel }: PropsWithChildren<WrapperWithButtonProps>) {
   return (
-    <div className={classNames(styles.wrapper, {[styles.isWithAccount]: isWithAccount})}>
-      {isWithAccount && user && (
+    <div className={classNames(styles.wrapper, {[styles.isWithAccount]: Boolean(user)})}>
+      {user && (
         <ProfileHead user={user} />
       )}
       <div className={styles.content}>

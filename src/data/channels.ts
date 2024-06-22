@@ -41,24 +41,28 @@ export const useChannelBySlug = (slug: string) => useQuery({
   },
 });
 
-interface VerifyChannelOwnershipPayload {
-  slug: string;
-  userId: number;
+interface AddChannelPayload {
+  channelSlug: string;
+  userTelegramId: number;
 }
 
-export const useVerifyChannelOwnershipMutation = () => {
+interface InternalChannel {
+  id: number;
+  channelSlug: string;
+  userTelegramId: number;
+}
+
+export const useAddChannelMutation = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<unknown, unknown, VerifyChannelOwnershipPayload>({
+  return useMutation<unknown, unknown, AddChannelPayload>({
     mutationFn: async (data) => {
       try {
-        const response = await axios.get(
-          `${appConfig.apiBaseUrl}/telegram/channels?slug=all_best_films_in_the_world&username=manfies`, {
-          headers: {
-            'ngrok-skip-browser-warning': true
-          }
-        })
-        console.log(response);
+        const response = await axios.post<InternalChannel | null>(
+          `${appConfig.apiBaseUrl}/v1/studio/channels`,
+          data,
+        )
+        return response.data;
       } catch (error) {
         console.log(error);
       }

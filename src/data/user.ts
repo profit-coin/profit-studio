@@ -15,7 +15,7 @@ export const useCreateUserMutation = () => {
 
   return useMutation<unknown, unknown, CreateUserPayload>({
     mutationFn: async (data) => {
-      const response = await axios.post(`${appConfig.apiBaseUrl}/studio/user`, data);
+      const response = await axios.post(`${appConfig.apiBaseUrl}/v1/studio/user`, data);
       console.log(response);
     }
   });

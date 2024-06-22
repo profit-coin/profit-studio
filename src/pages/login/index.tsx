@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Button from '@/components/common/Button/Button'
 import Heading from '@/components/common/Heading/Heading'
 import Text from '@/components/common/Text/Text'
@@ -7,9 +9,12 @@ import styles from './index.module.scss'
 import Lottie from 'lottie-react'
 import coinAnimation from '../../../public/animation/coin.json'
 import { useCreateUserMutation } from '@/data/user'
-import {TelegramUser} from '@/data/telegram'
+import { TelegramUser } from '@/data/telegram'
+import {useAuth} from '@/auth/authContext'
 
-function CreateAccountFlow () {
+function LoginPage () {
+  const { login } = useAuth();
+  const { push } = useRouter();
   const { t } = useTranslation();
 
   const [telegramUser, setTelegramUser] = useState<TelegramUser | null>(null)
@@ -31,13 +36,22 @@ function CreateAccountFlow () {
     if (!telegramUser) {
       return;
     }
-    await createUserMutation.mutateAsync({
-      telegramId: telegramUser.id,
-      username: telegramUser.username,
-      firstName: telegramUser.first_name,
-      lastName: telegramUser.last_name,
-      language: telegramUser.language_code,
-    });
+
+    try {
+      await createUserMutation.mutateAsync({
+        telegramId: telegramUser.id,
+        username: telegramUser.username,
+        firstName: telegramUser.first_name,
+        lastName: telegramUser.last_name,
+        language: telegramUser.language_code,
+      });
+
+      login && await login(window.Telegram.WebApp.initData);
+
+      push('/');
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -60,4 +74,12 @@ function CreateAccountFlow () {
   );
 }
 
-export default CreateAccountFlow
+export default LoginPage;
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  }
+}

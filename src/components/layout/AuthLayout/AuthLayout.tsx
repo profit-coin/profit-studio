@@ -1,5 +1,5 @@
 import { useAuth } from '@/auth/authContext';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import { PropsWithChildren, useEffect } from 'react';
 
 function AuthLayout({ children }: PropsWithChildren) {
@@ -8,7 +8,7 @@ function AuthLayout({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (!isLoading && !user) {
-      router.push('/login'); // Redirect to login if not authenticated
+      void router.push('/login');
     }
   }, [user, isLoading, router]);
 

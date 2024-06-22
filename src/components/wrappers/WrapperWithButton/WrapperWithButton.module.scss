@@ -1,11 +1,12 @@
 .wrapper {
-  height: 100vh;
+  height: 100%;
   display: grid;
-  grid-template-rows: 1fr calc(50px + 24px + 24px);
+  grid-row-gap: 24px;
+  grid-template-rows: 1fr auto;
 }
 
 .isWithAccount {
-  grid-template-rows: calc(112px + var(--spacing-4)) 1fr calc(50px + 24px + 24px);
+  grid-template-rows: auto 1fr auto;
 }
 
 .content {

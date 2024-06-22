@@ -1,11 +1,11 @@
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Head from 'next/head'
-import { TelegramUser } from '@/data/telegram'
 import DefaultWrapper from '@/components/wrappers/DefaultWrapper/DefaultWrapper'
 import {useChannelBySlug} from '@/data/channels'
 import ChannelHeader from '@/components/channel/ChannelHeader/ChannelHeader'
+import {useAuth} from '@/auth/authContext'
 
 const ChannelChart = dynamic(
   () => import('@/components/channel/ChannelChart/ChannelChart'),
@@ -13,25 +13,18 @@ const ChannelChart = dynamic(
 );
 
 function ChannelPage() {
+  const { user } = useAuth();
+
   const { push, query } = useRouter();
-  const [ user, setUser ] = useState<TelegramUser | null>(null)
   const slug = query.slug as string;
   const { data: channel } = useChannelBySlug(slug);
 
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe) {
-      window.Telegram.WebApp.headerColor = 'rgba(47,44,170,1)';
       window.Telegram.WebApp.BackButton.onClick(() => {
         push('/');
       });
       window.Telegram.WebApp.BackButton.show();
-
-      const query = new URLSearchParams(window.Telegram.WebApp.initData);
-      const user = query.get('user');
-
-      if (user) {
-        setUser(JSON.parse(user))
-      }
     }
   }, []);
 

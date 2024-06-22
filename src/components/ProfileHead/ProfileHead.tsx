@@ -1,19 +1,19 @@
-import { TelegramUser } from '@/data/telegram'
+import { InternalUser } from '@/data/auth'
 import styles from './ProfileHead.module.scss'
 import Balance from '../Balance/Balance'
 
 interface ProfileHeadProps {
-  user: TelegramUser
+  user: InternalUser;
 }
 
 function ProfileHead({ user }: ProfileHeadProps) {
   return (
     <div className={styles.content}>
       <h1 className={styles.name}>
-        {user.first_name} {user.last_name}
+        {user.firstName} {user.lastName}
       </h1>
       <span className={styles.username}>@{user.username}</span>
-      <Balance color="primary" balance={40301000} size="large" />
+      <Balance color="primary" balance={user.balance} size="large" />
     </div>
   )
 }
