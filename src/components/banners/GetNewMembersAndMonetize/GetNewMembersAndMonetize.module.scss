@@ -1,0 +1,39 @@
+.banner {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+}
+
+.background {
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  top: 50%;
+  position: absolute;
+  transform: translateY(-50%);
+}
+
+.content {
+  z-index: 2;
+  position: relative;
+  padding: var(--spacing-4);
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+  }
+}
+
+.title {
+  margin-bottom: var(--spacing-4);
+}
+
+.title, .text {
+  color: var(--text-inverted);
+}

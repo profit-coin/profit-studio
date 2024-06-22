@@ -4,6 +4,7 @@ import AuthLayout from '@/components/layout/AuthLayout/AuthLayout'
 import MyChannelsList from '@/components/channels/MyChannelsList/MyChannelsList'
 import WrapperWithButton from '@/components/wrappers/WrapperWithButton/WrapperWithButton'
 import { useAuth } from '@/auth/authContext';
+import GetNewMembersAndMonetizeBanner from '@/components/banners/GetNewMembersAndMonetize/GetNewMembersAndMonetize';
 
 export default function Home() {
   const router = useRouter();
@@ -27,6 +28,7 @@ export default function Home() {
           buttonLabel={'Add channel'}
           onButtonClick={handleAddChannel}
         >
+          <GetNewMembersAndMonetizeBanner />
           <MyChannelsList />
         </WrapperWithButton>
       ) : null}
