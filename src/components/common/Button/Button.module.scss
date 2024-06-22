@@ -5,6 +5,7 @@
   font-size: 18px;
   box-shadow: none;
   font-weight: bold;
+  position: relative;
   padding: 20px 32px;
   border-radius: 12px;
   color: var(--text-inverted);
@@ -18,4 +19,14 @@
 
 .fullWidth {
   width: 100%;
+}
+
+.loader {
+  top: 50%;
+  position: absolute;
+  right: var(--spacing-4);
+  width: var(--spacing-6);
+  height: var(--spacing-6);
+  fill: var(--text-inverted);
+  transform: translateY(-50%);
 }

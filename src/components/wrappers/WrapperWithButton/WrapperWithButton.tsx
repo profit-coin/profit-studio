@@ -7,12 +7,14 @@ import classNames from 'classnames';
 import ProfileHead from '@/components/ProfileHead/ProfileHead';
 
 interface WrapperWithButtonProps {
-  onButtonClick: () => void;
-  buttonLabel: string;
   user?: InternalUser;
+
+  buttonLabel: string;
+  isButtonLoading?: boolean;
+  onButtonClick: () => void;
 }
 
-function WrapperWithButton ({ children, user, onButtonClick, buttonLabel }: PropsWithChildren<WrapperWithButtonProps>) {
+function WrapperWithButton ({ children, user, onButtonClick, buttonLabel, isButtonLoading }: PropsWithChildren<WrapperWithButtonProps>) {
   return (
     <div className={classNames(styles.wrapper, {[styles.isWithAccount]: Boolean(user)})}>
       {user && (
@@ -24,7 +26,7 @@ function WrapperWithButton ({ children, user, onButtonClick, buttonLabel }: Prop
         </ScrollArea>
       </div>
       <div className={styles.button}>
-        <Button onClick={onButtonClick} variant="primary" isFullWidth>
+        <Button onClick={onButtonClick} isFullWidth isLoading={isButtonLoading}>
           {buttonLabel}
         </Button>
       </div>

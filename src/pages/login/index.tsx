@@ -17,7 +17,8 @@ function LoginPage () {
   const { push } = useRouter();
   const { t } = useTranslation();
 
-  const [telegramUser, setTelegramUser] = useState<TelegramUser | null>(null)
+  const [ isSubmitting, setIsSubmitting ] = useState(false);
+  const [ telegramUser, setTelegramUser ] = useState<TelegramUser | null>(null)
   const createUserMutation = useCreateUserMutation();
 
   useEffect(() => {
@@ -37,6 +38,7 @@ function LoginPage () {
       return;
     }
 
+    setIsSubmitting(true);
     try {
       await createUserMutation.mutateAsync({
         telegramId: telegramUser.id,
@@ -52,6 +54,7 @@ function LoginPage () {
     } catch (error) {
       console.error(error);
     }
+    setIsSubmitting(false);
   }
 
   return (
@@ -66,7 +69,7 @@ function LoginPage () {
         </Text>
       </div>
       <div className={styles.footer}>
-        <Button onClick={handleCreateAccount} variant="primary" isFullWidth>
+        <Button onClick={handleCreateAccount} isFullWidth isLoading={isSubmitting}>
           {t('flows.createAccount.button')}
         </Button>
       </div>

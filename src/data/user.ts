@@ -1,6 +1,7 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import appConfig from '@/config/appConfig';
+import { InternalUser } from './auth';
 
 interface CreateUserPayload {
   telegramId: number;
@@ -11,12 +12,10 @@ interface CreateUserPayload {
 }
 
 export const useCreateUserMutation = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation<unknown, unknown, CreateUserPayload>({
+  return useMutation<InternalUser | null, unknown, CreateUserPayload>({
     mutationFn: async (data) => {
       const response = await axios.post(`${appConfig.apiBaseUrl}/v1/studio/user`, data);
-      console.log(response);
+      return response.data;
     }
   });
 }
