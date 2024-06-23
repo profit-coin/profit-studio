@@ -1,6 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import appConfig from '@/config/appConfig';
-import axios from 'axios';
 import { get, post } from '../http/http';
 
 export interface ChannelListItem {

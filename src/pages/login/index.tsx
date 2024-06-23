@@ -40,13 +40,7 @@ function LoginPage () {
 
     setIsSubmitting(true);
     try {
-      await createUserMutation.mutateAsync({
-        telegramId: telegramUser.id,
-        username: telegramUser.username,
-        firstName: telegramUser.first_name,
-        lastName: telegramUser.last_name,
-        language: telegramUser.language_code,
-      });
+      await createUserMutation.mutateAsync();
 
       login && await login(window.Telegram.WebApp.initData);
 
