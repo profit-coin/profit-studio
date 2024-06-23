@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import appConfig from '@/config/appConfig';
 import axios from 'axios';
+import { get, post } from '../http/http';
 
 export interface ChannelListItem {
   id: number;
@@ -19,54 +20,47 @@ export interface Channel extends ChannelListItem {
   }
 }
 
-export const useChannels = (userTelegramId?: number) => useQuery({
+export const useChannels = () => useQuery({
   queryKey: ['channels'],
   queryFn: async () => {
-    if (!userTelegramId) {
-      return [];
-    }
-
-    let response = null;
+    let data = null;
     try { 
-      response = await axios.get<InternalChannel[]>(`${appConfig.apiBaseUrl}/v1/studio/channels/user?userTelegramId=${userTelegramId}`);
+      data = await get<InternalChannel[]>('v1/studio/channels/user')
     } catch (error) {
       console.log(error);
       return [];
     }
 
-    if (typeof response.data === 'string') {
+    if (typeof data === 'string') {
       return [];
     }
 
-    return response.data;
+    return data;
   },
-  enabled: !!userTelegramId,
   refetchInterval: 3000
 });
 
-export const useChannelByTelegramId = (channelTelegramId: number, userTelegramId?: number) => useQuery({
+export const useChannelByTelegramId = (channelTelegramId: number) => useQuery({
   queryKey: ['channel', channelTelegramId],
   queryFn: async () => {
-    let response = null;
+    let data = null;
     try {
-      response = await axios.get<InternalChannel>(`${appConfig.apiBaseUrl}/v1/studio/channels/${channelTelegramId}?userTelegramId=${userTelegramId}`);
+      data = await get<InternalChannel>(`v1/studio/channels/${channelTelegramId}`);
     } catch (error) {
       console.log(error);
       return null;
     }
 
-    if (typeof response.data === 'string') {
+    if (typeof data === 'string') {
       return null;
     }
 
-    return response.data;
-  },
-  enabled: !!userTelegramId,
+    return data;
+  }
 });
 
 interface AddChannelPayload {
   channelSlug: string;
-  userTelegramId: number;
 }
 
 export interface InternalChannel {
@@ -89,11 +83,8 @@ export const useAddChannelMutation = () => {
   return useMutation<unknown, unknown, AddChannelPayload>({
     mutationFn: async (data) => {
       try {
-        const response = await axios.post<InternalChannel | null>(
-          `${appConfig.apiBaseUrl}/v1/studio/channels`,
-          data,
-        )
-        return response.data;
+        const channel = await post<InternalChannel | null, AddChannelPayload>('v1/studio/channels', data);
+        return channel;
       } catch (error) {
         console.log(error);
       }

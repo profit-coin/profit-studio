@@ -9,7 +9,7 @@ import { useAuth } from '@/auth/authContext';
 function MyChannelsList () {
   const { user } = useAuth();
   console.log(user);
-  const { data: channels, isLoading } = useChannels(user?.telegramId);
+  const { data: channels, isLoading } = useChannels();
   
   if (isLoading) {
     return (

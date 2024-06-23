@@ -1,5 +1,4 @@
-import appConfig from '@/config/appConfig';
-import axios from 'axios';
+import { post } from '@/http/http';
 
 export interface InternalUser {
   id: number;
@@ -10,9 +9,13 @@ export interface InternalUser {
   balance: number;
 }
 
+interface VerifyTelegramUserPayload {
+  initData: string;
+}
+
 const verifyTelegramUser = async (initData: string) => {
-  const response = await axios.post<InternalUser | null>(`${appConfig.apiBaseUrl}/v1/studio/auth`, { initData });
-  return response.data;
+  const user = await post<InternalUser | null, VerifyTelegramUserPayload>('v1/studio/auth', { initData });
+  return user;
 };
 
 export const useInternalAuth = (initData: string) => {

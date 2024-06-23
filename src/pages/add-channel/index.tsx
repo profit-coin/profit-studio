@@ -26,14 +26,10 @@ function AddChannelPage() {
   }, []);
 
   const handleAddChannel = async () => {
-    if (!user) {
-      return;
-    }
     setIsSubmitting(true);
     try {
       await addChannelMutation.mutateAsync({
         channelSlug: slug,
-        userTelegramId: user.telegramId
       });
       window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
       push('/');

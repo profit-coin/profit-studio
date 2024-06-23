@@ -18,7 +18,7 @@ function ChannelPage() {
 
   const { push, query } = useRouter();
   const channelTelegramId = query.channelTelegramId as string;
-  const { data: channel, isLoading } = useChannelByTelegramId(parseInt(channelTelegramId), user?.telegramId);
+  const { data: channel, isLoading } = useChannelByTelegramId(parseInt(channelTelegramId));
 
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe) {
