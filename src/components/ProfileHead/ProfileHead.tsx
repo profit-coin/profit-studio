@@ -6,9 +6,9 @@ import Loader from '../common/Loader/Loader';
 
 function ProfileHead() {
   const { user } = useAuth();
-  const { data: balance, isLoading } = useUserBalance(user?.telegramId);
+  const { data: balance } = useUserBalance();
 
-  if (!user || isLoading) {
+  if (!user) {
     return <Loader />;
   }
 
